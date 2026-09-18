@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apna Hotel — Veg & Non-Veg | Mumbai</title>
+  <meta name="description" content="Apna Hotel, Mumbai — authentic homestyle Veg and Non-Veg food. Order online: Masala Dosa, Shawarma, Chicken Masala, Mutton Biryani and more." />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Poppins font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind config: custom palette + font -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50: '#fff7ed', 100: '#ffedd5', 200: '#fed7aa', 300: '#fdba74',
+              400: '#fb923c', 500: '#f97316', 600: '#ea580c', 700: '#c2410c',
+              800: '#9a3412', 900: '#7c2d12'
+            },
+            leaf: { 500: '#22c55e', 600: '#16a34a' },
+            chili: { 500: '#ef4444', 600: '#dc2626' }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Smooth scrolling for CTA anchors */
+    html { scroll-behavior: smooth; }
+    /* Hide scrollbar on horizontal filter pills on mobile */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Slide-in animation for the cart drawer */
+    #cartDrawer { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+    #cartOverlay { transition: opacity 0.3s ease; }
+    /* Gentle card hover lift */
+    .menu-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.18); }
+  </style>
+</head>
+
+<body class="font-sans bg-brand-50 text-gray-800 antialiased">
+
+  <!-- ==================== HEADER ==================== -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2 min-w-0">
+        <span class="text-2xl sm:text-3xl">🍛</span>
+        <div class="leading-tight min-w-0">
+          <h1 class="text-lg sm:text-2xl font-bold text-brand-700 truncate">Apna Hotel</h1>
+          <p class="text-[10px] sm:text-xs text-gray-500 truncate">Veg & Non-Veg • Mumbai</p>
+        </div>
+      </a>
+
+      <!-- Customer ID chip (generated once, saved in localStorage) -->
+      <div id="customerIdChip" class="flex items-center gap-2 bg-brand-100 border border-brand-200 rounded-full px-3 py-1.5 shadow-sm shrink-0">
+        <span class="w-2 h-2 rounded-full bg-leaf-500 animate-pulse" aria-hidden="true"></span>
+        <span class="text-[10px] sm:text-xs text-gray-500 hidden xs:inline sm:inline">Your ID</span>
+        <span id="customerId" class="text-xs sm:text-sm font-semibold text-brand-700">…</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== SECTION 1: HERO / OWNER ==================== -->
+  <section id="hero" class="relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 pt-10 pb-14 md:pt-16 md:pb-20 grid md:grid-cols-2 gap-10 items-center">
+
+      <!-- Owner intro -->
+      <div class="order-2 md:order-1 text-center md:text-left">
+        <span class="inline-block bg-brand-100 text-brand-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+          🏆 Serving Mumbai since 1998
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+          Welcome to <span class="text-brand-600">Apna Hotel</span>
+        </h2>
+
+        <!-- 4.5 star rating -->
+        <div class="flex items-center justify-center md:justify-start gap-2 mt-4">
+          <div class="flex text-amber-400 text-xl" aria-label="Rating: 4.5 out of 5 stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span class="relative inline-block">
+              <span class="text-gray-300">★</span>
+              <span class="absolute inset-0 overflow-hidden w-1/2 text-amber-400">★</span>
+            </span>
+          </div>
+          <span class="font-bold text-gray-800">4.5</span>
+          <span class="text-sm text-gray-500">(2,300+ happy foodies)</span>
+        </div>
+
+        <!-- Owner's story / message -->
+        <p class="mt-5 text-gray-600 leading-relaxed max-w-xl mx-auto md:mx-0">
+          <em>"Namaste! I'm Ramesh, the owner of Apna Hotel. What began as a tiny
+          street-side stall my father ran is today a place where the whole
+          neighbourhood comes to eat. Every dish is cooked fresh with the same
+          spices and the same love — no shortcuts, no compromise. When you eat
+          here, you eat like family."</em>
+        </p>
+        <p class="mt-3 text-sm text-gray-500">— Ramesh Patil, Owner & Head Chef</p>
+
+        <!-- CTA: scroll to menu -->
+        <a href="#menu" class="mt-7 inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 active:scale-95 transition text-white font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-brand-600/30">
+          🍽️ View Menu & Order Now
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+
+      <!-- Owner photo card -->
+      <div class="order-1 md:order-2 flex justify-center">
+        <div class="relative">
+          <div class="absolute -inset-3 bg-brand-200/60 rounded-[2rem] rotate-3" aria-hidden="true"></div>
+          <img
+            src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=70"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=70';"
+            alt="Ramesh Patil, owner and head chef of Apna Hotel, cooking in his kitchen"
+            class="relative w-64 sm:w-80 md:w-full max-w-sm rounded-[2rem] shadow-2xl object-cover aspect-square" />
+          <div class="absolute -bottom-4 -left-4 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
+            <span class="text-2xl">👨‍🍳</span>
+            <div class="leading-tight">
+              <p class="font-bold text-sm">Ramesh Patil</p>
+              <p class="text-xs text-gray-500">Owner & Head Chef</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative wave divider -->
+    <svg class="w-full text-white" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="currentColor" d="M0,32 C240,64 480,0 720,16 C960,32 1200,64 1440,32 L1440,60 L0,60 Z"></path>
+    </svg>
+  </section>
+
+  <!-- ==================== SECTION 2: MENU ==================== -->
+  <section id="menu" class="bg-white py-14 md:py-20">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900">Our <span class="text-brand-600">Menu</span></h3>
+        <p class="text-gray-500 mt-2">Fresh, hot and made to order — straight from our kitchen to you.</p>
+      </div>
+
+      <!-- Category filter buttons -->
+      <div class="flex justify-center gap-2 sm:gap-3 mb-10 overflow-x-auto no-scrollbar pb-1" role="tablist" aria-label="Menu category filter">
+        <button data-filter="all"     class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2 border-brand-600 bg-brand-600 text-white transition" aria-pressed="true">All</button>
+        <button data-filter="veg"     class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2 border-brand-200 bg-white text-gray-600 hover:border-brand-500 transition" aria-pressed="false">🟢 Veg</button>
+        <button data-filter="nonveg"  class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold border-2 border-brand-200 bg-white text-gray-600 hover:border-brand-500 transition" aria-pressed="false">🔴 Non-Veg</button>
+      </div>
+
+      <!-- Menu grid: 2 cols mobile, 3 cols tablet, 4 cols desktop -->
+      <div id="menuGrid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"></div>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION 3: WHY US (small trust strip) ==================== -->
+  <section class="py-10 bg-brand-50">
+    <div class="max-w-5xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-5 text-center">
+      <div class="bg-white rounded-2xl p-5 shadow-sm">
+        <span class="text-3xl">⚡</span>
+        <p class="font-semibold mt-2">Fast Delivery</p>
+        <p class="text-sm text-gray-500">Hot food in 30–45 mins</p>
+      </div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm">
+        <span class="text-3xl">🧼</span>
+        <p class="font-semibold mt-2">Hygienic Kitchen</p>
+        <p class="text-sm text-gray-500">FSSAI certified & clean</p>
+      </div>
+      <div class="bg-white rounded-2xl p-5 shadow-sm">
+        <span class="text-3xl">💰</span>
+        <p class="font-semibold mt-2">Honest Prices</p>
+        <p class="text-sm text-gray-500">₹50 – ₹100, no hidden charges</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-gray-900 text-gray-400 py-10">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+      <p class="text-xl font-bold text-white">🍛 Apna Hotel</p>
+      <p class="text-sm">Shop 4, Sai Complex, S.V. Road, Bandra West, Mumbai 400050</p>
+      <p class="text-sm">📞 +91 98765 43210 &nbsp;•&nbsp; 🕒 9:00 AM – 11:00 PM, all days</p>
+      <p class="text-xs text-gray-600 pt-4">© <span id="year"></span> Apna Hotel. Made with ❤️ in Mumbai.</p>
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING CART BUTTON ==================== -->
+  <button id="cartFab" aria-label="Open cart"
+    class="fixed bottom-5 right-5 z-40 bg-brand-600 hover:bg-brand-700 active:scale-95 transition text-white rounded-full shadow-2xl w-16 h-16 flex items-center justify-center">
+    <span class="text-2xl" aria-hidden="true">🛒</span>
+    <!-- Item count badge -->
+    <span id="cartCount" class="absolute -top-1 -right-1 bg-chili-500 text-white text-xs font-bold min-w-[1.4rem] h-[1.4rem] px-1 flex items-center justify-center rounded-full border-2 border-brand-600 hidden">0</span>
+  </button>
+
+  <!-- ==================== CART DRAWER (Section 3) ==================== -->
+  <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none" aria-hidden="true"></div>
+  <aside id="cartDrawer" role="dialog" aria-label="Your cart"
+    class="fixed top-0 right-0 z-50 h-full w-[92vw] max-w-md bg-white shadow-2xl flex flex-col translate-x-full">
+
+    <!-- Drawer header -->
+    <div class="flex items-center justify-between px-5 py-4 border-b bg-brand-600 text-white">
+      <h3 class="font-bold text-lg flex items-center gap-2">🛒 Your Cart</h3>
+      <button id="cartClose" aria-label="Close cart" class="text-white/90 hover:text-white text-2xl leading-none">&times;</button>
+    </div>
+
+    <!-- Cart items -->
+    <div id="cartItems" class="flex-1 overflow-y-auto px-5 py-4 space-y-4"></div>
+
+    <!-- Empty-cart state -->
+    <div id="cartEmpty" class="flex-1 flex flex-col items-center justify-center text-center px-8">
+      <span class="text-6xl mb-4">🍽️</span>
+      <p class="font-semibold text-gray-700">Your cart is empty</p>
+      <p class="text-sm text-gray-500 mt-1">Add some delicious items from the menu!</p>
+    </div>
+
+    <!-- Drawer footer: total + checkout -->
+    <div class="border-t px-5 py-4 bg-brand-50 space-y-3">
+      <div class="flex justify-between text-sm text-gray-600">
+        <span>Customer ID</span>
+        <span id="cartCustomerId" class="font-semibold text-gray-800">—</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="font-semibold text-gray-700">Total</span>
+        <span id="cartTotal" class="text-2xl font-extrabold text-brand-700">₹0</span>
+      </div>
+      <button id="checkoutBtn"
+        class="w-full bg-brand-600 hover:bg-brand-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-brand-600/25 transition">
+        Proceed to Checkout →
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==================== CHECKOUT MODAL (Section 4: Customer Details) ==================== -->
+  <div id="checkoutOverlay" class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl my-8 overflow-hidden">
+      <!-- Modal header -->
+      <div class="bg-brand-600 text-white px-6 py-4 flex items-center justify-between">
+        <h3 class="font-bold text-lg">📍 Delivery Details</h3>
+        <button id="checkoutClose" aria-label="Close checkout" class="text-white/90 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+
+      <form id="orderForm" novalidate class="px-6 py-6 space-y-4">
+        <!-- Full name -->
+        <div>
+          <label for="fName" class="block text-sm font-semibold mb-1.5">Full Name <span class="text-chili-500">*</span></label>
+          <input id="fName" name="name" type="text" autocomplete="name" placeholder="e.g. Sairaj Sonawane"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-500 focus:outline-none" />
+          <p class="err text-xs text-chili-500 mt-1 hidden">Please enter your full name (min. 3 characters).</p>
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label for="fPhone" class="block text-sm font-semibold mb-1.5">Phone Number <span class="text-chili-500">*</span></label>
+          <input id="fPhone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="10" placeholder="10-digit mobile number"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-500 focus:outline-none" />
+          <p class="err text-xs text-chili-500 mt-1 hidden">Enter a valid 10-digit Indian mobile number.</p>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label for="fEmail" class="block text-sm font-semibold mb-1.5">Email <span class="text-chili-500">*</span></label>
+          <input id="fEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-500 focus:outline-none" />
+          <p class="err text-xs text-chili-500 mt-1 hidden">Enter a valid email address.</p>
+        </div>
+
+        <!-- Delivery location -->
+        <div>
+          <label for="fAddress" class="block text-sm font-semibold mb-1.5">Delivery Location <span class="text-chili-500">*</span></label>
+          <textarea id="fAddress" name="address" rows="3" placeholder="Flat / street / landmark, area, Mumbai"
+            class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-brand-500 focus:outline-none resize-none"></textarea>
+          <p class="err text-xs text-chili-500 mt-1 hidden">Please enter your delivery address (min. 10 characters).</p>
+
+          <!-- GPS button -->
+          <button type="button" id="gpsBtn"
+            class="mt-2 inline-flex items-center gap-2 text-sm font-semibold bg-brand-100 text-brand-700 hover:bg-brand-200 px-4 py-2 rounded-full transition">
+            📍 Use My Current Location - GPS
+          </button>
+          <p id="gpsStatus" class="text-xs text-gray-500 mt-2 hidden"></p>
+        </div>
+
+        <!-- Order summary (live) -->
+        <div class="bg-brand-50 rounded-2xl p-4 text-sm space-y-1">
+          <p class="font-semibold text-gray-700 mb-1">Order Summary</p>
+          <div id="summaryItems" class="text-gray-600 space-y-0.5"></div>
+          <div class="flex justify-between font-bold text-gray-800 pt-1 border-t border-brand-200 mt-1">
+            <span>Total</span><span id="summaryTotal">₹0</span>
+          </div>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-leaf-600 hover:bg-leaf-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-leaf-600/25 transition active:scale-[0.98]">
+          ✅ Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== ORDER SUCCESS MODAL ==================== -->
+  <div id="successOverlay" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden text-center">
+      <div class="bg-gradient-to-r from-leaf-500 to-leaf-600 text-white px-6 py-8">
+        <span class="text-6xl block mb-2">🎉</span>
+        <h3 class="text-2xl font-extrabold">Order Placed!</h3>
+        <p class="text-white/90 text-sm mt-1">Thank you! Your food is on its way.</p>
+      </div>
+      <div class="px-6 py-6 space-y-3">
+        <div class="flex justify-between bg-brand-50 rounded-xl px-4 py-3">
+          <span class="text-gray-600 text-sm">Customer ID</span>
+          <span id="successCustomerId" class="font-bold text-brand-700">—</span>
+        </div>
+        <div class="flex justify-between bg-brand-50 rounded-xl px-4 py-3">
+          <span class="text-gray-600 text-sm">Order ID</span>
+          <span id="successOrderId" class="font-bold text-brand-700">—</span>
+        </div>
+        <div class="flex justify-between bg-brand-50 rounded-xl px-4 py-3">
+          <span class="text-gray-600 text-sm">Total Amount</span>
+          <span id="successTotal" class="font-bold text-brand-700">₹0</span>
+        </div>
+        <div class="flex justify-between bg-brand-50 rounded-xl px-4 py-3">
+          <span class="text-gray-600 text-sm">Estimated Delivery</span>
+          <span id="successEta" class="font-bold text-brand-700">—</span>
+        </div>
+        <button id="successOk" class="w-full mt-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3.5 rounded-xl transition">
+          Done — Back to Menu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification (e.g. "Added to cart") -->
+  <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-sm font-medium px-5 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300"></div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    /* =====================================================
+       APNA HOTEL — Single-page ordering app (Vanilla JS)
+       Storage: localStorage for Customer ID + Cart
+    ===================================================== */
+
+    // ---------- MENU DATA ----------
+    const MENU = [
+      { id: 1, name: 'Masala Dosa',     price: 70,  veg: true,  desc: 'Crispy rice crepe stuffed with spiced potato masala, served with coconut chutney & sambar.', img: 'https://images.unsplash.com/photo-1630383249896-424e482df921?auto=format&fit=crop&w=600&q=70' },
+      { id: 2, name: 'Veg Shawarma',    price: 70,  veg: true,  desc: 'Warm pita wrapped around crunchy veggies, mayo and our secret tangy sauce.', img: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=70' },
+      { id: 3, name: 'Chicken Shawarma',price: 60,  veg: false, desc: 'Juicy grilled chicken, pickled onions and garlic mayo rolled in soft flatbread.', img: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=600&q=70' },
+      { id: 4, name: 'Chicken Masala',  price: 80,  veg: false, desc: 'Tender chicken simmered in a rich tomato-onion gravy with homemade garam masala.', img: 'https://images.unsplash.com/photo-1595947954857-1b90b626275b?auto=format&fit=crop&w=600&q=70' },
+      { id: 5, name: 'Mutton Biryani',  price: 90,  veg: false, desc: 'Long-grain basmati layered with succulent mutton, saffron and mint. Dum-cooked slow.', img: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=600&q=70' },
+      { id: 6, name: 'Mutton Masala',  price: 100,  veg: false, desc: 'Slow-cooked mutton in a bold, aromatic masala — best with butter roti or rice.', img: 'https://images.unsplash.com/photo-1574653853027-5382a3d23a15?auto=format&fit=crop&w=600&q=70' },
+      { id: 7, name: 'Puri Bhaji',      price: 50,  veg: true,  desc: 'Fluffy deep-fried puris with a spicy, buttery potato bhaji. A Mumbai breakfast legend.', img: 'https://images.unsplash.com/photo-1567337710282-00832b415979?auto=format&fit=crop&w=600&q=70' }
+    ];
+    // Fallback image for any broken Unsplash link
+    const FALLBACK_IMG = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=70';
+
+    // ---------- 1) CUSTOMER ID (persistent) ----------
+    // Generated once per visitor, stored in localStorage, shown in header.
+    function genCustomerId() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no confusing 0/O, 1/I
+      let code = '';
+      for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+      return 'CUST-' + code;
+    }
+    let customerId = localStorage.getItem('apna_customer_id');
+    if (!customerId) {
+      customerId = genCustomerId();
+      localStorage.setItem('apna_customer_id', customerId);
+    }
+    document.getElementById('customerId').textContent = customerId;
+    document.getElementById('cartCustomerId').textContent = customerId;
+
+    // ---------- 2) CART (persistent via localStorage) ----------
+    // Shape: { [itemId]: quantity }
+    let cart = JSON.parse(localStorage.getItem('apna_cart') || '{}');
+
+    const saveCart = () => localStorage.setItem('apna_cart', JSON.stringify(cart));
+    const rupee = n => '₹' + n;
+
+    function cartCount() {
+      return Object.values(cart).reduce((a, b) => a + b, 0);
+    }
+    function cartTotal() {
+      return Object.entries(cart).reduce((sum, [id, qty]) => {
+        const item = MENU.find(m => m.id === Number(id));
+        return sum + (item ? item.price * qty : 0);
+      }, 0);
+    }
+
+    function addToCart(id) {
+      cart[id] = (cart[id] || 0) + 1;
+      saveCart(); renderCart(); showToast(itemName(id) + ' added to cart 🛒');
+    }
+    function changeQty(id, delta) {
+      cart[id] = (cart[id] || 0) + delta;
+      if (cart[id] <= 0) delete cart[id];
+      saveCart(); renderCart();
+    }
+    function itemName(id) {
+      const item = MENU.find(m => m.id === Number(id));
+      return item ? item.name : 'Item';
+    }
+
+    // ---------- RENDER: MENU GRID ----------
+    const grid = document.getElementById('menuGrid');
+
+    function cardHTML(item) {
+      return `
+      <article class="menu-card bg-white rounded-2xl sm:rounded-3xl shadow-md overflow-hidden flex flex-col" data-veg="${item.veg}">
+        <div class="relative">
+          <img src="${item.img}" onerror="this.onerror=null;this.src='${FALLBACK_IMG}';"
+               alt="${item.name}" loading="lazy"
+               class="w-full h-36 sm:h-44 object-cover" />
+          <!-- Veg / Non-Veg tag -->
+          <span class="absolute top-2.5 left-2.5 ${item.veg ? 'bg-leaf-500' : 'bg-chili-500'} text-white text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-full shadow">
+            ${item.veg ? '🟢 VEG' : '🔴 NON-VEG'}
+          </span>
+        </div>
+        <div class="p-3 sm:p-4 flex flex-col flex-1">
+          <div class="flex items-start justify-between gap-2">
+            <h4 class="font-bold text-sm sm:text-lg leading-tight">${item.name}</h4>
+            <span class="font-extrabold text-brand-700 text-sm sm:text-lg whitespace-nowrap">${rupee(item.price)}</span>
+          </div>
+          <p class="text-[11px] sm:text-sm text-gray-500 mt-1.5 leading-snug flex-1">${item.desc}</p>
+          <button onclick="addToCart(${item.id})"
+            class="mt-3 w-full bg-brand-600 hover:bg-brand-700 active:scale-95 transition text-white text-xs sm:text-sm font-semibold py-2.5 rounded-xl shadow">
+            ＋ Add to Cart
+          </button>
+        </div>
+      </article>`;
+    }
+
+    function renderMenu(filter = 'all') {
+      const items = MENU.filter(m => filter === 'all' || (filter === 'veg' ? m.veg : !m.veg));
+      grid.innerHTML = items.map(cardHTML).join('');
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.classList.remove('bg-brand-600', 'text-white', 'border-brand-600');
+          b.classList.add('bg-white', 'text-gray-600', 'border-brand-200');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('bg-brand-600', 'text-white', 'border-brand-600');
+        btn.classList.remove('bg-white', 'text-gray-600', 'border-brand-200');
+        btn.setAttribute('aria-pressed', 'true');
+        renderMenu(btn.dataset.filter);
+      });
+    });
+
+    // ---------- RENDER: CART DRAWER ----------
+    const drawer   = document.getElementById('cartDrawer');
+    const overlay  = document.getElementById('cartOverlay');
+    const cartEl   = document.getElementById('cartItems');
+    const emptyEl  = document.getElementById('cartEmpty');
+    const countEl  = document.getElementById('cartCount');
+    const totalEl  = document.getElementById('cartTotal');
+    const checkout = document.getElementById('checkoutBtn');
+
+    function renderCart() {
+      const entries = Object.entries(cart);
+      const n = cartCount();
+
+      // Badge on floating button
+      countEl.textContent = n;
+      countEl.classList.toggle('hidden', n === 0);
+
+      // List
+      if (entries.length === 0) {
+        cartEl.innerHTML = '';
+        emptyEl.classList.remove('hidden');
+        emptyEl.classList.add('flex');
+      } else {
+        emptyEl.classList.add('hidden');
+        emptyEl.classList.remove('flex');
+        cartEl.innerHTML = entries.map(([id, qty]) => {
+          const item = MENU.find(m => m.id === Number(id));
+          return `
+          <div class="flex gap-3 items-center bg-brand-50 rounded-2xl p-3">
+            <img src="${item.img}" onerror="this.onerror=null;this.src='${FALLBACK_IMG}';"
+                 alt="${item.name}" class="w-14 h-14 rounded-xl object-cover shrink-0" />
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-sm truncate">${item.name}</p>
+              <p class="text-xs text-gray-500">${rupee(item.price)} × ${qty} = <span class="font-semibold text-brand-700">${rupee(item.price * qty)}</span></p>
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <button onclick="changeQty(${id},-1)" aria-label="Decrease quantity"
+                class="w-8 h-8 rounded-full bg-white border border-gray-300 hover:bg-gray-100 font-bold">−</button>
+              <span class="w-6 text-center font-bold">${qty}</span>
+              <button onclick="changeQty(${id},1)" aria-label="Increase quantity"
+                class="w-8 h-8 rounded-full bg-brand-600 text-white hover:bg-brand-700 font-bold">＋</button>
+            </div>
+          </div>`;
+        }).join('');
+      }
+
+      totalEl.textContent = rupee(cartTotal());
+      checkout.disabled = entries.length === 0;
+    }
+
+    function openCart() {
+      drawer.classList.remove('translate-x-full');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      drawer.classList.add('translate-x-full');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('cartFab').addEventListener('click', openCart);
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+
+    // ---------- 4) CHECKOUT MODAL ----------
+    const coOverlay = document.getElementById('checkoutOverlay');
+
+    function openCheckout() {
+      closeCart();
+      renderSummary();
+      coOverlay.classList.remove('hidden');
+      coOverlay.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCheckout() {
+      coOverlay.classList.add('hidden');
+      coOverlay.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+    checkout.addEventListener('click', openCheckout);
+    document.getElementById('checkoutClose').addEventListener('click', closeCheckout);
+    coOverlay.addEventListener('click', e => { if (e.target === coOverlay) closeCheckout(); });
+
+    function renderSummary() {
+      const rows = Object.entries(cart).map(([id, qty]) => {
+        const item = MENU.find(m => m.id === Number(id));
+        return `<div class="flex justify-between"><span>${item.name} × ${qty}</span><span>${rupee(item.price * qty)}</span></div>`;
+      }).join('');
+      document.getElementById('summaryItems').innerHTML = rows;
+      document.getElementById('summaryTotal').textContent = rupee(cartTotal());
+    }
+
+    // GPS geolocation
+    document.getElementById('gpsBtn').addEventListener('click', () => {
+      const status = document.getElementById('gpsStatus');
+      if (!navigator.geolocation) {
+        status.textContent = 'Geolocation is not supported by your browser.';
+        status.className = 'text-xs text-chili-500 mt-2';
+        return;
+      }
+      status.textContent = '📡 Detecting your location…';
+      status.className = 'text-xs text-gray-500 mt-2';
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          const { latitude, longitude } = pos.coords;
+          const acc = Math.round(pos.coords.accuracy);
+          document.getElementById('fAddress').value =
+            `GPS: ${latitude.toFixed(6)}, ${longitude.toFixed(6)} (±${acc}m)\n(Paste your nearby landmark if needed)`;
+          status.textContent = `✅ Location detected (±${acc}m). You can also add a landmark below.`;
+          status.className = 'text-xs text-leaf-600 mt-2';
+        },
+        err => {
+          status.textContent = '⚠️ Could not get location (' + err.message + '). Please type your address.';
+          status.className = 'text-xs text-chili-500 mt-2';
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    });
+
+    // ---------- WHATSAPP NOTIFICATION TO ADMIN ----------
+    function sendWhatsAppNotification(orderData) {
+      const adminPhone = '918104867321'; // Admin / Chef WhatsApp number
+      let msg = `🍛 *NEW ORDER — Apna Hotel*\n\n`;
+      msg += `📋 *Order ID:* ${orderData.orderId}\n`;
+      msg += `🆔 *Customer ID:* ${orderData.customerId}\n`;
+      msg += `👤 *Name:* ${orderData.name}\n`;
+      msg += `📞 *Phone:* ${orderData.phone}\n`;
+      msg += `📧 *Email:* ${orderData.email}\n`;
+      msg += `📍 *Delivery Address:*\n${orderData.address}\n\n`;
+      msg += `🛒 *Order Items:*\n`;
+      orderData.items.forEach(item => {
+        msg += `  • ${item.name} × ${item.qty} = ₹${item.total}\n`;
+      });
+      msg += `\n💰 *Grand Total: ₹${orderData.total}*\n`;
+      msg += `⏰ *ETA:* ${orderData.eta}\n`;
+      msg += `🕐 *Ordered at:* ${new Date().toLocaleString('en-IN')}\n`;
+
+      const waURL = `https://wa.me/${adminPhone}?text=${encodeURIComponent(msg)}`;
+      window.open(waURL, '_blank');
+    }
+
+    // ---------- VALIDATION + PLACE ORDER ----------
+    const form = document.getElementById('orderForm');
+
+    function setError(input, show) {
+      const p = input.parentElement.querySelector('.err');
+      if (p) p.classList.toggle('hidden', !show);
+      input.classList.toggle('border-chili-500', show);
+      input.classList.toggle('border-gray-200', !show);
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const name    = document.getElementById('fName');
+      const phone   = document.getElementById('fPhone');
+      const email   = document.getElementById('fEmail');
+      const address = document.getElementById('fAddress');
+
+      // --- validations ---
+      const okName    = name.value.trim().length >= 3;
+      const okPhone   = /^[6-9]\d{9}$/.test(phone.value.trim());
+      const okEmail   = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim());
+      const okAddress = address.value.trim().length >= 10;
+
+      setError(name, !okName);
+      setError(phone, !okPhone);
+      setError(email, !okEmail);
+      setError(address, !okAddress);
+
+      if (!(okName && okPhone && okEmail && okAddress)) return; // block order
+      if (cartCount() === 0) { showToast('Your cart is empty!'); return; }
+
+      // --- generate Order ID like ORD-12345 ---
+      const orderId = 'ORD-' + Math.floor(10000 + Math.random() * 90000);
+      // --- random delivery estimate 30–45 mins ---
+      const eta = (30 + Math.floor(Math.random() * 16)) + ' minutes';
+
+      // Fill success screen
+      document.getElementById('successCustomerId').textContent = customerId;
+      document.getElementById('successOrderId').textContent    = orderId;
+      document.getElementById('successTotal').textContent      = rupee(cartTotal());
+      document.getElementById('successEta').textContent        = eta;
+
+      // --- Send WhatsApp notification to admin/chef ---
+      const orderItems = Object.entries(cart).map(([id, qty]) => {
+        const item = MENU.find(m => m.id === Number(id));
+        return { name: item.name, qty, total: item.price * qty };
+      });
+      sendWhatsAppNotification({
+        orderId,
+        customerId,
+        eta,
+        name: name.value.trim(),
+        phone: phone.value.trim(),
+        email: email.value.trim(),
+        address: address.value.trim(),
+        items: orderItems,
+        total: cartTotal()
+      });
+
+      // Reset cart + close checkout
+      cart = {};
+      saveCart();
+      renderCart();
+      form.reset();
+      document.getElementById('gpsStatus').classList.add('hidden');
+      closeCheckout();
+
+      // Show success
+      const s = document.getElementById('successOverlay');
+      s.classList.remove('hidden');
+      s.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    });
+
+    document.getElementById('successOk').addEventListener('click', () => {
+      const s = document.getElementById('successOverlay');
+      s.classList.add('hidden');
+      s.classList.remove('flex');
+      document.body.style.overflow = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ---------- TOAST ----------
+    let toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.remove('opacity-0', 'translate-y-2');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.add('opacity-0', 'translate-y-2'), 2200);
+    }
+
+    // ---------- INIT ----------
+    renderMenu('all');
+    renderCart();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
